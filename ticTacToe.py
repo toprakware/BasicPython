@@ -29,7 +29,7 @@ while True:
                 print("This tile is taken.")
                 continue
             elif place <= 0 or place >= 10:
-                print("Invalid Input. Use numbers between 1-9s")
+                print("Invalid Input. Use numbers between 1-9")
 
             played_list.append(place)
         except ValueError:
