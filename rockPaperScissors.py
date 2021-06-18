@@ -1,26 +1,19 @@
 #Toprk
 
-from random import randint
+from random import choice
 
-print("""\nROCK-PAPER-SCISSORS SIMULATOR (STILL WORKS 2020)\n""")
+print("""\nROCK-PAPER-SCISSORS SIMULATOR (STILL WORKS 2023)\n""")
 
-computer_point,player_point = 0,0
+computer_point, player_point = 0, 0
 draw_count = 0
+winner = ""
 
 while True:
 
-    num = randint(0,2)
-    computer = ""
-
-    if num == 0:
-        computer = "ROCK"
-    elif num == 1:
-        computer = "PAPER"
-    elif num == 2:
-        computer = "SCISSORS"
+    computer = choice(["ROCK", "PAPER", "SCISSORS"])
 
     print("Press (Q) to Quit")
-    player = input("\n  TYPE HERE: ")
+    player = input("\n  Rock, paper, scissors: ")
     player = player.upper()
 
     if player not in ("ROCK","PAPER","SCISSORS","Q"):
@@ -78,6 +71,15 @@ while True:
         print("  COMPUTER WINS!")
         print("****************")
         computer_point += 1
+        
+if player_point > computer_point:
+    winner = "Player wins"
+
+elif computer_point > player_point:
+    winner = "Computer wins"
+    
+else:
+    winner = "Draw"
 
 print(f"""
 *********************************
@@ -86,5 +88,7 @@ PLAYER WON: {player_point} times
 COMPUTER WON: {computer_point} times
 ---------------------------------
 DRAW: {draw_count}
+---------------------------------
+Result: {winner}
 *********************************
 """)
