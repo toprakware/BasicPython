@@ -12,12 +12,48 @@ def division(num1, num2):
     print(f"{num1} / {num2} = {num1 / num2}")
 
 def pythagoras(side1, side2, hypotenuse):
-    if side1 == 0: #a^2 = c^2 - b^2
-        print(f"Side1: {sqrt((hypotenuse ** 2) - (side2 ** 2))}")
-    elif side2 == 0: #b^2 = c^2 - a^2
-        print(f"Side2: {sqrt((hypotenuse ** 2) - (side1 ** 2))}")
-    elif hypotenuse == 0: #c^2 = a^2 + b^2
-        print(f"Hypotenuse: {sqrt((side1 ** 2) - (side2 ** 2))}")
+    x_count = 0
+
+    if side1 in ("x","X"):
+        x_count += 1
+
+    if side2 in ("x","X"):
+        x_count += 1
+
+    if hypotenuse in ("x","X"):
+        x_count += 1
+
+    if x_count == 2 or x_count == 3:
+        print("\nYou must choose one unknown variable.")
+        return
+
+    if x_count == 0:
+        if (side1 ** 2) + (side2 ** 2) == (hypotenuse ** 2):
+            print("\nTrue")
+            return
+        else:
+            print("\nFalse")
+            return
+
+    if side1 in ("x","X"):
+
+        if hypotenuse <= side2:
+            print("\nSide2 cannot be bigger than hypotenuse.")
+            return
+
+        print(f"\nSide1 (x): {sqrt((hypotenuse ** 2) - (side2 ** 2))}")
+
+    elif side2 in ("x","X"):
+
+        if hypotenuse <= side1:
+            print("\nSide1 cannot be bigger than hypotenuse.")
+            return
+
+        print(f"\nSide2 (x): {sqrt((hypotenuse ** 2) - (side1 ** 2))}")
+
+    elif hypotenuse in ("x","X"):
+
+        print(f"\nHypotenuse (x): {sqrt(abs((side1 ** 2) - (side2 ** 2)))}")
 
 def absolute_value(num):
     if num >= 0:
@@ -150,7 +186,7 @@ while True:
         try:
             num1 = int(input("First Number: "))
         except ValueError:
-            print("Please type an (+) integer.")
+            print("Please type a (+) integer.")
             continue
         try:
             num2 = int(input("Second Number: "))
@@ -158,39 +194,55 @@ while True:
                 print("You can't divide by ZERO!")
                 continue
         except ValueError:
-            print("Please type an (+) integer.")
+            print("Please type a (+) integer.")
             continue
         division(num1, num2)
 
     elif action == 5:
-        print("Press '0' if it's the side you want to find")
-        try:
-            side1 = int(input("Side1: "))
-            if side1 < 0:
-                print("Invalid INPUT.")
+        print("Press 'x/X' if it's the side you want to find")
+
+        side1 = input("\nSide1: ")
+
+        if side1 not in ("x","X"):
+            try:
+                side1 = int(side1)
+
+                if side1 <= 0:
+                    print("Invalid INPUT.")
+                    continue
+
+            except ValueError:
+                print("Side1 must be a (+) integer.")
                 continue
-        except ValueError:
-            print("Please type an (+) integer.")
-            continue
-        try:
-            side2 = int(input("Side2: "))
-            if side2 < 0:
-                print("Invalid INPUT.")
+
+        side2 = input("\nSide2: ")
+
+        if side2 not in ("x","X"):
+            try:
+                side2 = int(side2)
+
+                if side2 <= 0:
+                    print("Invalid INPUT.")
+                    continue
+
+            except ValueError:
+                print("Side2 must be a (+) integer.")
                 continue
-        except ValueError:
-            print("Please type an (+) integer.")
-            continue
-        try:
-            hypotenuse = int(input("Hypotenuse: "))
-            if hypotenuse < 0:
-                print("Invalid INPUT.")
+
+        hypotenuse = input("\nHypotenuse: ")
+
+        if hypotenuse not in ("x","X"):
+            try:
+                hypotenuse = int(hypotenuse)
+
+                if hypotenuse <= 0:
+                    print("Invalid INPUT.")
+                    continue
+
+            except ValueError:
+                print("Hypotenuse must be a (+) integer.")
                 continue
-        except ValueError:
-            print("Please type an (+) integer.")
-            continue
-        if side1 and side2 and hypotenuse > 0:
-            print("Try again. (Atleast one side must be 0.)")
-            continue
+
         pythagoras(side1, side2, hypotenuse)
 
     elif action == 6:
@@ -208,7 +260,7 @@ while True:
                 print("Invalid INPUT.")
                 continue
         except ValueError:
-            print("Please type an (+) integer.")
+            print("Please type a (+) integer.")
             continue
         fibonacci(num)
 
@@ -219,7 +271,7 @@ while True:
                 print("Invalid INPUT.")
                 continue
         except ValueError:
-            print("Please type an (+) integer.")
+            print("Please type a (+) integer.")
             continue
         prime_numbers(num)
 
@@ -230,7 +282,7 @@ while True:
                 print("Invalid INPUT.")
                 continue
         except ValueError:
-            print("Please type an (+) integer.")
+            print("Please type a (+) integer.")
             continue
         print(str(num) + "! =", factorial(num))
 
@@ -259,7 +311,7 @@ while True:
                 print("Invalid INPUT.")
                 continue
         except ValueError:
-            print("Please type an (+) integer.")
+            print("Please type a (+) integer.")
         root(num, index)
 
     elif action == 12:
@@ -269,7 +321,7 @@ while True:
                 print("Invalid INPUT.")
                 continue
         except ValueError:
-            print("Please type an (+) integer.")
+            print("Please type a (+) integer.")
             continue
         circle_area(r)
 
@@ -280,7 +332,7 @@ while True:
                 print("Invalid INPUT.")
                 continue
         except ValueError:
-            print("Please type an (+) integer.")
+            print("Please type a (+) integer.")
             continue
         circumference(r)
 
@@ -291,7 +343,7 @@ while True:
                 print("Invalid INPUT.")
                 continue
         except ValueError:
-            print("Please type an (+) integer.")
+            print("Please type a (+) integer.")
             continue
         try:
             l = int(input("Length: "))
@@ -299,7 +351,7 @@ while True:
                 print("Invalid INPUT.")
                 continue
         except ValueError:
-            print("Please type an (+) integer.")
+            print("Please type a (+) integer.")
             continue
         square_area(h, l)
 
@@ -310,7 +362,7 @@ while True:
                 print("Invalid INPUT.")
                 continue
         except ValueError:
-            print("Please type an (+) integer.")
+            print("Please type a (+) integer.")
             continue
         try:
             base = int(input("Base: "))
@@ -318,7 +370,7 @@ while True:
                 print("Invalid INPUT.")
                 continue
         except ValueError:
-            print("Please type an (+) integer.")
+            print("Please type a (+) integer.")
             continue
         triangle_area(base, height)
 
