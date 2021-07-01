@@ -16,10 +16,8 @@ def pythagoras(side1, side2, hypotenuse):
 
     if side1 in ("x","X"):
         x_count += 1
-
     if side2 in ("x","X"):
         x_count += 1
-
     if hypotenuse in ("x","X"):
         x_count += 1
 
