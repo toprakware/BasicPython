@@ -1,6 +1,6 @@
 #Toprk
 
-from math import pi, sqrt
+from math import pi, sqrt, cos, acos
 
 def addition(num1, num2): 
     print(f"{num1} + {num2} = {num1 + num2}")
@@ -53,7 +53,7 @@ def pythagoras(side1, side2, hypotenuse):
 
     elif hypotenuse in ("x","X"):
 
-        print(f"\nHypotenuse (x): {sqrt(abs((side1 ** 2) - (side2 ** 2)))}")
+        print(f"\nHypotenuse (x): {sqrt((side1 ** 2) + (side2 ** 2))}")
 
 def absolute_value(num):
     if num >= 0:
@@ -118,6 +118,56 @@ def can_be_divided_by(num, divisor):
     else:
         print(f"Yes. {num}/{divisor} = {num // divisor}")
 
+def convert(angle, measure):
+    if measure.upper() == "RAD":
+        return (float(angle) * pi)/180
+    elif measure.upper() == "DEG":
+        return (float(angle) * 180)/pi
+    
+def law_of_cosines(side1, side2, side3, angle, measure):
+    
+    x_count = 0
+
+    if side1 in ("x","X"):
+        x_count += 1
+    if side2 in ("x","X"):
+        x_count += 1
+    if side3 in ("x","X"):
+        x_count += 1
+    if angle in ("x","X"):
+        x_count += 1
+
+    if x_count == 2 or x_count == 3 or x_count == 4:
+        print("\nYou must choose one unknown variable.")
+        return
+
+    if x_count == 0:
+        if (side3 == sqrt(side1**2 + side2**2 - 2 * side1 * side2 * cos(convert(angle, 'RAD')))):
+            print("\nTrue")
+            return
+        else:
+            print("\nFalse")
+            return
+
+    if side1 in ("x","X"):
+        side1 = sqrt(side3 ** 2 - side2 ** 2 + 2 * side1 * side2 * cos(convert(angle, 'RAD')))
+        print(f"\nSide1 (x): {side1}")
+
+    elif side2 in ("x","X"):
+        side2 = sqrt(side3 ** 2 - side1 ** 2 + 2 * side1 * side2 * cos(convert(angle, 'RAD')))
+        print(f"\nSide2 (x): {side2}")
+
+    elif side3 in ("x","X"):
+        side3 = sqrt(side1 ** 2 + side2 ** 2 - 2 * side1 * side2 * cos(convert(angle, 'RAD')))
+        print(f"\nSide3 (x): {side3}")
+
+    elif angle in ("x","X"):
+        angle = acos(round(((side1 ** 2 + side2 ** 2 - side3 ** 2)/(2 * side1 * side2)), 2))
+        if measure.upper() == "DEG":
+            print(f"\nAngle (x in deg): ~{convert(angle, 'DEG')}")
+        elif measure.upper() == "RAD":
+            print(f"\nAngle (x in rad): ~{angle}")
+
 print("\n*** PYTHON BASIC CALCULATOR ***")
 print("""
     Enter the number corresponding to the action you want to do.
@@ -127,7 +177,7 @@ print("""
     3- Multiplication   7- Fibonacci        14- Area of a Square
     4- Division         8- Prime Numbers    15- Area of a Triangle
                         9- Factorial        16- Can be divided by
-                       10- Exponentiation
+                       10- Exponentiation   17- Law of Cosines
                        11- Root 
     """)
 
@@ -138,8 +188,8 @@ while True:
         print("Please type an integer.")
         continue
 
-    if action < 1 or action > 16:
-        print("Please enter a valid action. (1-16)")
+    if action < 1 or action > 17:
+        print("Please enter a valid action. (1-17)")
         continue
 
     if action == 1:
@@ -389,4 +439,73 @@ while True:
             print("Please type an integer.")
             continue
         can_be_divided_by(num, divisor)
+
+    elif action == 17:
+        print("\nPress 'x/X' if it's the side you want to find")
+
+    side1 = input("\nSide1: ")
+
+    if side1 not in ("x","X"):
+        try:
+            side1 = float(side1)
+
+            if side1 <= 0:
+                print("Invalid INPUT.")
+                continue
+
+        except ValueError:
+            print("Side1 must be a (+) float.")
+            continue
+
+    side2 = input("\nSide2: ")
+
+    if side2 not in ("x","X"):
+        try:
+            side2 = float(side2)
+
+            if side2 <= 0:
+                print("Invalid INPUT.")
+                continue
+
+        except ValueError:
+            print("Side2 must be a (+) float.")
+            continue
+
+    side3 = input("\nSide3: ")
+
+    if side3 not in ("x","X"):
+        try:
+            side3 = float(side3)
+
+            if side3 <= 0:
+                print("Invalid INPUT.")
+                continue
+
+        except ValueError:
+            print("Side3 must be a (+) float.")
+            continue
+
+    angle = input("\nAngle: (in deg 1-180) ")
+
+    if angle not in ("x","X"):
+        try:
+            angle = float(angle)
+
+            if angle <= 0 or angle > 180:
+                print("Invalid INPUT.")
+                continue
+        except ValueError:
+            print("Angle must be a (+) float between 1-180")
+            continue 
+
+    measure = ""
+    if angle in ("x","X"):
+        measure = input("\nMeasure: (rad/deg) ")
+
+        if measure.upper() not in ("RAD", "DEG"):
+            print("Mesure must be rad or deg")
+            continue
+
+    law_of_cosines(side1, side2, side3, angle, measure)
+
     continue
