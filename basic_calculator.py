@@ -54,19 +54,23 @@ def factorial(num):
     return factorial(num - 1) * num
 
 def prime_numbers(num):
+    prime_list = []
     for i in range(2, num):
-        for j in range(2, floor(sqrt(i))):
+        for j in range(2, floor(sqrt(i)) + 1):
             if i % j == 0:
                 break
         else:
-            print(i, end=" ")
-
+            prime_list.append(i)
+    print(prime_list)
+   
 def fibonacci(num):
+    fibo_list = []
     a, b = 0,1
     print(f"\nFibonacci Series ({num})")
     for i in range(num):       
-        print(a, end=" ")
+        fibo_list.append(a)
         a, b = b, a + b
+    print(fibo_list)
 
 def can_be_divided_by(num, divisor):
     result = num // divisor
@@ -85,7 +89,7 @@ def pythagoras(sideA, sideB, hypotenuse):
     if hypotenuse in ("x","X"):
         x_count += 1
 
-    if x_count == 2 or x_count == 3:
+    if x_count >= 2:
         print("\nYou must choose one unknown variable.")
         return
 
@@ -136,7 +140,7 @@ def law_of_cosines(sideA, sideB, sideC, angleC, measure):
     if angleC in ("x","X"):
         x_count += 1
 
-    if x_count == 2 or x_count == 3 or x_count == 4:
+    if x_count >= 2:
         print("\nYou must choose one unknown variable.")
         return
 
