@@ -22,7 +22,7 @@ def division(num1, num2):
 
 def exponentiation(base, exponent):
     if base == 0 and exponent == 0:
-        print(f"\n{base}^{exponent} = 1 or Undefinied. (It depends)")
+        print(f"\n{base}^{exponent} = 1 or Undefined. (It depends)")
     else:
         print(f"\n{base}^{exponent} = {base ** exponent}")
 
