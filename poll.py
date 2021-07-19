@@ -20,7 +20,7 @@ class Poll:
         while True:
             choice = input(f"\nAdd an Option (MIN 2, MAX {self._MAX_OPTION}) (Type done/DONE to complete the Addition part): ")
 
-            if choice == "DONE" or choice == "done":
+            if choice in (“done”,”DONE”):
                 if len(self._choice_dict) < 2:
                     print("You can add MIN 2 options.")
                     continue
