@@ -28,22 +28,22 @@ data = {
 }
 
 
-def get_amount_data(ID):
+def get_balance_data(ID):
 	
-	total_amount = 0
+	total_balance = 0
 
 	for transaction_data in data["ID"][ID]["transactions"].values():
 		
 		try:
 			transaction_data["to"]
-			total_amount -= transaction_data["amount"]
+			total_balance -= transaction_data["amount"]
 			
 		except KeyError:
 
 			if transaction_data["from"]:
-				total_amount += transaction_data["amount"]
+				total_balance += transaction_data["amount"]
 
-	return total_amount
+	return total_balance
 
 
 def get_transaction_data(ID):
@@ -79,7 +79,7 @@ class Sender:
 		try:
 			if data["ID"][self.__senderID]["key"] == self.priv_key:
 
-				if get_amount_data(self.__senderID) >= amount:
+				if get_balance_data(self.__senderID) >= amount:
 
 					try:
 						sender_transaction_id   = get_transaction_id(self.__senderID)
@@ -97,7 +97,7 @@ class Sender:
 
 						print(f"Sending Failed: ID {receiverID} does not exist.")
 				else:
-					print(f"Sending Failed: Unsufficient balance: {get_amount_data(self.__senderID)}")
+					print(f"Sending Failed: Unsufficient balance: {get_balance_data(self.__senderID)}")
 			else:
 				print(f"Sending Failed: Key {self.priv_key} is wrong.")
 
@@ -110,8 +110,8 @@ print(f"""
 Sender transaction data before sending:     {get_transaction_data("I00000000000000000001")}
 Receiver transaction data before receiving: {get_transaction_data("I00000000000000000002")}
 
-Sender amount data before sending:          {get_amount_data("I00000000000000000001")}
-Receiver amount data before receiving:      {get_amount_data("I00000000000000000002")}
+Sender balance data before sending:          {get_balance_data("I00000000000000000001")}
+Receiver balance data before receiving:      {get_balance_data("I00000000000000000002")}
 """)
 
 
@@ -126,6 +126,6 @@ print(f"""
 Sender transaction data after sending:      {get_transaction_data("I00000000000000000001")}
 Receiver transaction data after receiving:  {get_transaction_data("I00000000000000000002")}
 
-Sender amount data after sending:           {get_amount_data("I00000000000000000001")}
-Receiver amount data after receiving:       {get_amount_data("I00000000000000000002")}
+Sender balance data after sending:           {get_balance_data("I00000000000000000001")}
+Receiver balance data after receiving:       {get_balance_data("I00000000000000000002")}
 """)
