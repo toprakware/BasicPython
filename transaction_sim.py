@@ -10,7 +10,7 @@ data = {
 				#For testing
 				0:
 				{
-					"from": "I00000000000000000002",
+					"from": "I00000000000000000003", #Sent from someone else
 					"amount": 50
 				}
 			}
@@ -78,26 +78,30 @@ class Sender:
 
 		try:
 			if data["ID"][self.__senderID]["key"] == self.priv_key:
+				
+				if amount > 0:
 
-				if get_balance_data(self.__senderID) >= amount:
+					if get_balance_data(self.__senderID) >= amount:
 
-					try:
-						sender_transaction_id   = get_transaction_id(self.__senderID)
-						receiver_transaction_id = get_transaction_id(receiverID)
+						try:
+							sender_transaction_id   = get_transaction_id(self.__senderID)
+							receiver_transaction_id = get_transaction_id(receiverID)
 
-						sender_new_transaction   = new_transaction("sender", receiverID, amount)
-						receiver_new_transaction = new_transaction("receiver", self.__senderID, amount)
+							sender_new_transaction   = new_transaction("sender", receiverID, amount)
+							receiver_new_transaction = new_transaction("receiver", self.__senderID, amount)
 
-						data["ID"][self.__senderID]["transactions"].update({sender_transaction_id: sender_new_transaction})
-						data["ID"][receiverID]["transactions"].update({receiver_transaction_id: receiver_new_transaction})
+							data["ID"][self.__senderID]["transactions"].update({sender_transaction_id: sender_new_transaction})
+							data["ID"][receiverID]["transactions"].update({receiver_transaction_id: receiver_new_transaction})
 
-						print("Transaction successful.")
+							print("Transaction successful.")
 
-					except KeyError:
+						except KeyError:
 
-						print(f"Sending Failed: ID {receiverID} does not exist.")
+							print(f"Sending Failed: ID {receiverID} does not exist.")
+					else:
+						print(f"Sending Failed: Unsufficient balance: {get_balance_data(self.__senderID)}")
 				else:
-					print(f"Sending Failed: Unsufficient balance: {get_balance_data(self.__senderID)}")
+					print("Sending Failed: Amount must be greater than zero.")
 			else:
 				print(f"Sending Failed: Key {self.priv_key} is wrong.")
 
@@ -107,8 +111,8 @@ class Sender:
 
 
 print(f"""
-Sender transaction data before sending:     {get_transaction_data("I00000000000000000001")}
-Receiver transaction data before receiving: {get_transaction_data("I00000000000000000002")}
+Sender transaction data before sending:      {get_transaction_data("I00000000000000000001")}
+Receiver transaction data before receiving:  {get_transaction_data("I00000000000000000002")}
 
 Sender balance data before sending:          {get_balance_data("I00000000000000000001")}
 Receiver balance data before receiving:      {get_balance_data("I00000000000000000002")}
@@ -123,8 +127,8 @@ sender.send("I00000000000000000002", 10)  #ReceverID, amount
 
 
 print(f"""
-Sender transaction data after sending:      {get_transaction_data("I00000000000000000001")}
-Receiver transaction data after receiving:  {get_transaction_data("I00000000000000000002")}
+Sender transaction data after sending:       {get_transaction_data("I00000000000000000001")}
+Receiver transaction data after receiving:   {get_transaction_data("I00000000000000000002")}
 
 Sender balance data after sending:           {get_balance_data("I00000000000000000001")}
 Receiver balance data after receiving:       {get_balance_data("I00000000000000000002")}
