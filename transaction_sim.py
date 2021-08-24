@@ -66,31 +66,30 @@ def new_transaction(p, ID, amount):
 
 class Sender:
 
-	__senderID = ""
-	priv_key   = ""
+	priv_key: str
 
-	def __init__(self, senderID):
+	def __init__(self, senderID: str):
 
-		self.__senderID = senderID
+		self.senderID = senderID
 
 
 	def send(self, receiverID, amount):
 
 		try:
-			if data["ID"][self.__senderID]["key"] == self.priv_key:
+			if data["ID"][self.senderID]["key"] == self.priv_key:
 				
 				if amount > 0:
 
-					if get_balance_data(self.__senderID) >= amount:
+					if get_balance_data(self.senderID) >= amount:
 
 						try:
-							sender_transaction_id   = get_transaction_id(self.__senderID)
+							sender_transaction_id   = get_transaction_id(self.senderID)
 							receiver_transaction_id = get_transaction_id(receiverID)
 
 							sender_new_transaction   = new_transaction("sender", receiverID, amount)
-							receiver_new_transaction = new_transaction("receiver", self.__senderID, amount)
+							receiver_new_transaction = new_transaction("receiver", self.senderID, amount)
 
-							data["ID"][self.__senderID]["transactions"].update({sender_transaction_id: sender_new_transaction})
+							data["ID"][self.senderID]["transactions"].update({sender_transaction_id: sender_new_transaction})
 							data["ID"][receiverID]["transactions"].update({receiver_transaction_id: receiver_new_transaction})
 
 							print("Transaction successful.")
@@ -99,7 +98,7 @@ class Sender:
 
 							print(f"Sending Failed: ID {receiverID} does not exist.")
 					else:
-						print(f"Sending Failed: Unsufficient balance: {get_balance_data(self.__senderID)}")
+						print(f"Sending Failed: Unsufficient balance: {get_balance_data(self.senderID)}")
 				else:
 					print("Sending Failed: Amount must be greater than zero.")
 			else:
@@ -107,7 +106,7 @@ class Sender:
 
 		except KeyError:
 
-			print(f"Sending Failed: ID {self.__senderID} does not exist.")
+			print(f"Sending Failed: ID {self.senderID} does not exist.")
 
 
 print(f"""
