@@ -11,7 +11,7 @@ word_list    = []
 harder_list  = ["unhappiness", "pessimism", "spitefulness", "javascript"]
 easier_list  = ["linux", "macbook", "python", "swift", "chaos", "bad life"]
 guess_list   = []      #Guessed words get added to this list.
-                      
+
 lives        = 10      #Lives left.
 tries        = 0
 guess_string = ""      #Guessed words get added to this string.
@@ -75,12 +75,8 @@ while True:
     if guess in guess_list:
         print("You already guessed this letter, try again.")
 
-    #If the secret word gets entered.
-    elif guess == secret_word:
-        print("BULLSEYE!, You found it after", tries, "tries.")
-
     elif guess in secret_word:
-         print("Nice One!")
+        print("Nice One!")
 
     elif guess not in secret_word:
 
