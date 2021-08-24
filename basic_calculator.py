@@ -61,8 +61,8 @@ def prime_numbers(num):
                 break
         else:
             prime_list.append(i)
-    print(prime_list)
-   
+    print(f"{prime_list}\n\nTotal: {len(prime_list)}")
+
 def fibonacci(num):
     fibo_list = []
     a, b = 0,1
