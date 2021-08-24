@@ -56,10 +56,10 @@ while True:
     except ValueError:
         pass
 
-    special = input("Do you want SYMBOLS in your pass? (Y/Enter) ")
+    symbols = input("Do you want SYMBOLS in your pass? (Y/Enter) ")
 
     try:
-        int(special)
+        int(symbols)
         print("You should use [Y/Enter]")
         continue
     except ValueError:
@@ -69,7 +69,7 @@ if letters in ("y","Y","yes","YES"):
     password_string += letters_string
 if numbers in ("y","Y","yes","YES"):
     password_string += numbers_string
-if special in ("y","Y","yes","YES"):
+if symbols in ("y","Y","yes","YES"):
     password_string += symbols_string
 
 try:
