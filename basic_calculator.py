@@ -1,6 +1,6 @@
 #Toprk
 
-from math import pi, sqrt, cos, acos, floor
+from math import pi, sqrt
 
 def addition(_list): 
     result = 0
@@ -54,6 +54,7 @@ def factorial(num):
     return factorial(num - 1) * num
 
 def prime_numbers(num):
+    from math import floor
     prime_list = []
     for i in range(2, num):
         for j in range(2, floor(sqrt(i)) + 1):
@@ -128,6 +129,7 @@ def convert(angle, measure):
         return (float(angle) * 180)/pi
 
 def law_of_cosines(sideA, sideB, sideC, angleC, measure):
+    from math import cos, acos
     
     x_count = 0
 
